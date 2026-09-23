@@ -1,6 +1,10 @@
-# Chevrolet Corvette
+# Chevrolet Corvette C5
 
-External aerodynamics of a production sports car.
+External aerodynamics of a production sports car (C5 generation, 1997–2004).
+
+![Streamlines](results/streamlines.png)
+
+*Streamlines coloured by kinematic pressure. Note the low-pressure wake behind the car.*
 
 ![Convergence](results/convergence.png)
 
@@ -8,7 +12,7 @@ External aerodynamics of a production sports car.
 
 | | |
 |---|---|
-| Geometry | Sketchfab model (CC BY 4.0), converted from OBJ, cleaned, welded and closed |
+| Geometry | ["Chevrolet corvette c5 (Black)"](https://sketchfab.com/3d-models/chevrolet-corvette-c5-black-604ffcf3bb544ae9b653e8cfc1fae87a) by Randomness (CC BY 4.0), converted from OBJ, cleaned, welded and closed |
 | Reference values | Frontal area 1.989 m² (measured, see [`frontal_area.png`](results/frontal_area.png)), wheelbase 2.655 m |
 | Freestream | 40 m/s |
 | Turbulence | k-ω SST with wall functions |
@@ -26,6 +30,17 @@ External aerodynamics of a production sports car.
 
 The solver ran with an estimated frontal area of 1.95 m². The values above are rescaled to
 the measured 1.989 m², a factor of 0.980. The raw `coefficient.dat` is unchanged.
+
+
+## Nonphysical pressure in a few cells
+
+OpenFOAM's `p` is kinematic (pressure divided by density, in m²/s²). At 40 m/s it should range from about +800 at the
+stagnation point down to a few thousand negative. In the final solution, 69 cells fall below −3,000 and the
+minimum is −13,325, while 99.99 % of cells lie between −1,507 and +800. These cells sit next to the highly skewed
+faces reported by `checkMesh`. They're too few to affect the integrated forces, but they stretch the automatic colour
+range in ParaView (see the legend in the image above), so pressure plots should use a fixed range.
+The fix is to improve the local mesh quality there (surface repair, snapping controls or mesh-quality settings in
+`snappyHexMeshDict`).
 
 ## Discussion
 

@@ -13,6 +13,7 @@ Needs:  numpy, matplotlib
 """
 import glob
 import os
+import warnings
 
 import matplotlib
 matplotlib.use("Agg")
@@ -21,14 +22,17 @@ import numpy as np
 
 AVG_WINDOW = 300
 
+# A run killed mid-write leaves a truncated last line; genfromtxt skips it but warns.
+warnings.filterwarnings("ignore", message="Some errors were detected")
+
 # Case folder -> (label, Aref used by the solver, correct Aref).
 # Cd and Cl scale with 1/Aref, so a wrong Aref is fixed by multiplying by
 # used/correct. See each case README for where the correct value came from.
 CASES = {
     "ahmed-body":   ("Ahmed body 25°", 0.112,  0.112),
     "ferrari-499p": ("Ferrari 499P",   2.2695, 1.6437),  # ran with the Mustang's Aref
-    "corvette":     ("Corvette",       1.95,   1.9891),  # estimate -> frontal_area.py
-    "mustang":      ("Mustang",        2.2695, 2.2695),
+    "corvette":     ("Corvette C5",    1.95,   1.9891),  # estimate -> frontal_area.py
+    "mustang":      ("Mustang Shelby", 2.2695, 2.2695),
     "motorbike":    ("motorBike",      0.75,   0.75),
 }
 
@@ -67,7 +71,7 @@ def main():
         ax1.set_ylim(lo - pad, hi + pad)
         ax1.set_ylabel("coefficient")
         ax1.set_title(f"{label}: force coefficients and residuals")
-        ax1.legend(loc="upper right")
+        ax1.legend(loc="center right", ncol=3, fontsize=8)
         ax1.grid(alpha=0.3)
         for i, name in enumerate(["Ux", "Uy", "Uz", "p"], start=1):
             ax2.semilogy(res[:, 0], res[:, i], label=name, lw=0.8)

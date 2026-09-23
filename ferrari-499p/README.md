@@ -4,13 +4,18 @@ External aerodynamics of the Ferrari 499P, a Le Mans Hypercar. It's the only car
 this set designed to produce downforce, so this case looks at how that downforce
 is split between the front and rear.
 
+![Streamlines, front](results/streamlines_front.png)
+![Streamlines, rear](results/streamlines_rear.png)
+
+*Streamlines coloured by velocity magnitude (m/s), 1000 seeds.*
+
 ![Convergence](results/convergence.png)
 
 ## Setup
 
 | | |
 |---|---|
-| Geometry | Sketchfab model (CC BY 4.0), repaired and made watertight |
+| Geometry | ["2024 Ferrari 499P"](https://sketchfab.com/3d-models/2024-ferrari-499p-bed18b70ae904a3792a316d9327d5942) by Dave Love SketchFab (CC BY 4.0), repaired and made watertight |
 | Reference values | Frontal area 1.6437 m² (measured, see [`frontal_area.png`](results/frontal_area.png)), wheelbase 3.15 m |
 | Freestream | 40 m/s |
 | Turbulence | k-ω SST with wall functions |
@@ -37,6 +42,17 @@ scale with 1/Aref, so the Cd and Cl above are the raw values multiplied by
 2.2695 / 1.6437 = 1.381. The moment coefficients also depend on the reference length and
 moment reference point, so they aren't corrected and shouldn't be used. `system/forceCoeffs`
 in this repo contains the correct values.
+
+
+## Nonphysical pressure in a few cells
+
+OpenFOAM's `p` is kinematic (pressure divided by density, in m²/s²). At 40 m/s it should range from about +800 at the
+stagnation point down to a few thousand negative. In the final solution, 150 cells fall below −3,000 and the
+minimum is −45,856, while 99.99 % of cells lie between −2,050 and +800. These cells sit next to the highly skewed
+faces reported by `checkMesh`. They're too few to affect the integrated forces, but they stretch the automatic colour
+range in ParaView (see the legend in the image above), so pressure plots should use a fixed range.
+The fix is to improve the local mesh quality there (surface repair, snapping controls or mesh-quality settings in
+`snappyHexMeshDict`).
 
 ## Discussion
 

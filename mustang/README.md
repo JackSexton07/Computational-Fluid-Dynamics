@@ -1,6 +1,10 @@
-# Ford Mustang
+# Ford Mustang Shelby (2012)
 
 External aerodynamics of a production muscle car.
+
+![Streamlines](results/streamlines.png)
+
+*A line of streamlines seeded across the car, coloured by kinematic pressure (m²/s²).*
 
 ![Convergence](results/convergence.png)
 
@@ -8,7 +12,7 @@ External aerodynamics of a production muscle car.
 
 | | |
 |---|---|
-| Geometry | Sketchfab model (CC BY 4.0), cleaned and made watertight |
+| Geometry | ["Ford Mustang Shelby 2012"](https://sketchfab.com/3d-models/ford-mustang-shelby-2012-b60b3a520c024fd69416d56a71900626) by David_Holiday (CC BY 4.0), cleaned and made watertight |
 | Reference values | Frontal area 2.2695 m² (measured, see [`frontal_area.png`](results/frontal_area.png)), wheelbase 2.72 m |
 | Freestream | 40 m/s |
 | Turbulence | k-ω SST with wall functions |
@@ -20,8 +24,8 @@ External aerodynamics of a production muscle car.
 
 | | Value |
 |---|---:|
-| Cd | 0.402 ± 0.008 |
-| Cl | −0.158 ± 0.035 |
+| Cd | 0.403 ± 0.008 |
+| Cl | −0.155 ± 0.036 |
 | Cl front / rear | −0.135 / −0.023 |
 
 ## Run history
@@ -36,7 +40,7 @@ from iteration 1300 and ran to 1500 ([`log.simpleFoam3`](results/logs/log.simple
 
 ## Discussion
 
-- **This case has the largest oscillations in the set** (Cd ±2 %, Cl ±22 %). The flow
+- **This case has the largest oscillations in the set** (Cd ±2 %, Cl ±23 %). The flow
   behind the fastback rear doesn't settle into a steady state, and 200 iterations after
   the restart is a short averaging window. Running longer, or a time-accurate simulation
   (URANS), would give a more reliable mean.
