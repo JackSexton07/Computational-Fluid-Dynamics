@@ -46,7 +46,7 @@ geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
   pitching moments can't be corrected this way, because the moment reference point also
   differed. The corrected setup is the one in the repo.
 - **Measure reference areas; don't estimate them.** `frontal_area.py` projects the STL onto
-  the y–z plane. For the Corvette it gave 1.989 m² against a 1.95 m² estimate, a 2 % change in Cd.
+  the y–z plane. For the Corvette it gave 1.989 m² against a 1.95 m² estimate, which resulted in a 2 % change in Cd.
 - **Steady RANS on bluff bodies doesn't settle completely.** Lift on the Ahmed body
   and Mustang oscillates by ±25 % while drag stays within ±2 %. Averaging over a window is
   necessary, and an unsteady (URANS/DES) run would be the next step.
@@ -54,7 +54,7 @@ geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
   highly skewed faces show nonphysical pressures (as low as −46,000 m²/s² on the 499P, where
   the physical range is about −2,000 to +800). That's 3 cells out of 4.7 M, too few to
   change the integrated forces, but enough to stretch ParaView's automatic colour scale. The Ahmed
-  body, with no skewed faces, has none, which points to mesh quality as the cause.
+  body, with no skewed faces, doesn't have this problem, which points to mesh quality as the cause.
 - **Downloaded visual models need repair before meshing.** The Sketchfab cars had to be
   cleaned, welded and closed into watertight surfaces before `snappyHexMesh` would
   produce a usable mesh.
