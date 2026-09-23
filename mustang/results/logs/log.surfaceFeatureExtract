@@ -1,0 +1,90 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2606                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _481094f-20260618 OPENFOAM=2606 version=2606
+Arch   : "LSB;label=32;scalar=64"
+Exec   : surfaceFeatureExtract
+Date   : Sep 20 2026
+Time   : 14:24:59
+Host   : PC
+PID    : 509394
+I/O    : uncollated
+Case   : /home/jack/run/mustang
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+
+--> FOAM Warning : allowSystemOperations : Allowing user-supplied system call operations.
+                   This can be a security risk if running untrusted cases
+                   through e.g. 'coded' on-the-fly-compilation functionality.
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+
+Note: Feature line extraction only valid on closed manifold surfaces
+
+Reading surfaceFeatureExtractDict
+
+Surfaces     : mustang.stl
+Output       : mustang
+Load options : offset
+Write options: writeObj=yes writeVTK=off
+
+Statistics:
+Triangles    : 514534 in 1 region(s)
+Vertices     : 256543
+Bounding Box : (0.000289984 -1.02349 -0.009914) (4.78027 1.00628 1.41584)
+
+Constructing feature set from included angle 150
+Selecting edges based purely on geometric tests: no
+Removing all non-manifold edges (edges with > 2 connected faces) unless they cross multiple regions
+
+Initial Feature set:
+    points : 41025
+    edges  : 113093
+    of which
+        region edges   : 0
+        external edges : 78825
+        internal edges : 34268
+
+Final Feature set:
+    points : 111506
+    of which
+        convex             : 15560
+        concave            : 3215
+        mixed              : 22250
+        non-feature        : 70481
+    edges  : 113093
+    of which
+        external edges     : 78825
+        internal edges     : 34268
+        flat edges         : 0
+        open edges         : 0
+        multiply connected : 0
+
+Writing extendedFeatureEdgeMesh to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang.extendedFeatureEdgeMesh"
+
+Writing extendedEdgeMesh components to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang"
+Writing 15560 convex feature points to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_convexFeaturePts.obj"
+Writing 3215 concave feature points to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_concaveFeaturePts.obj"
+Writing 22250 mixed feature points to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_mixedFeaturePts.obj"
+Writing 22250 mixed feature point structure to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_mixedFeaturePtsStructure.obj"
+Writing 78825 external edges to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_externalEdges.obj"
+Writing 34268 internal edges to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_internalEdges.obj"
+Writing 0 flat edges to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_flatEdges.obj"
+Writing 0 open edges to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_openEdges.obj"
+Writing 0 multiple edges to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_multipleEdges.obj"
+Writing 0 region edges to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_regionEdges.obj"
+Writing 113093 edge directions to "/home/jack/run/mustang/constant/extendedFeatureEdgeMesh/mustang_edgeDirections.obj"
+
+Writing featureEdgeMesh to "/home/jack/run/mustang/constant/triSurface/mustang.eMesh"
+ExecutionTime = 1.5 s  ClockTime = 2 s
+
+End
+

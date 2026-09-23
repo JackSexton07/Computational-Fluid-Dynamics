@@ -1,0 +1,90 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2606                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _481094f-20260618 OPENFOAM=2606 version=2606
+Arch   : "LSB;label=32;scalar=64"
+Exec   : surfaceFeatureExtract
+Date   : Sep 19 2026
+Time   : 21:09:56
+Host   : PC
+PID    : 380386
+I/O    : uncollated
+Case   : /home/jack/run/corvette
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+
+--> FOAM Warning : allowSystemOperations : Allowing user-supplied system call operations.
+                   This can be a security risk if running untrusted cases
+                   through e.g. 'coded' on-the-fly-compilation functionality.
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+
+Note: Feature line extraction only valid on closed manifold surfaces
+
+Reading surfaceFeatureExtractDict
+
+Surfaces     : corvette.stl
+Output       : corvette
+Load options : offset
+Write options: writeObj=yes writeVTK=off
+
+Statistics:
+Triangles    : 255932 in 1 region(s)
+Vertices     : 127642
+Bounding Box : (-4.85153e-05 -1.0485 -0.0101129) (4.57052 1.04836 1.2063)
+
+Constructing feature set from included angle 150
+Selecting edges based purely on geometric tests: no
+Removing all non-manifold edges (edges with > 2 connected faces) unless they cross multiple regions
+
+Initial Feature set:
+    points : 20732
+    edges  : 45105
+    of which
+        region edges   : 0
+        external edges : 23278
+        internal edges : 21827
+
+Final Feature set:
+    points : 43811
+    of which
+        convex             : 5960
+        concave            : 5262
+        mixed              : 9510
+        non-feature        : 23079
+    edges  : 45105
+    of which
+        external edges     : 23278
+        internal edges     : 21827
+        flat edges         : 0
+        open edges         : 0
+        multiply connected : 0
+
+Writing extendedFeatureEdgeMesh to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette.extendedFeatureEdgeMesh"
+
+Writing extendedEdgeMesh components to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette"
+Writing 5960 convex feature points to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_convexFeaturePts.obj"
+Writing 5262 concave feature points to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_concaveFeaturePts.obj"
+Writing 9510 mixed feature points to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_mixedFeaturePts.obj"
+Writing 9510 mixed feature point structure to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_mixedFeaturePtsStructure.obj"
+Writing 23278 external edges to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_externalEdges.obj"
+Writing 21827 internal edges to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_internalEdges.obj"
+Writing 0 flat edges to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_flatEdges.obj"
+Writing 0 open edges to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_openEdges.obj"
+Writing 0 multiple edges to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_multipleEdges.obj"
+Writing 0 region edges to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_regionEdges.obj"
+Writing 45105 edge directions to "/home/jack/run/corvette/constant/extendedFeatureEdgeMesh/corvette_edgeDirections.obj"
+
+Writing featureEdgeMesh to "/home/jack/run/corvette/constant/triSurface/corvette.eMesh"
+ExecutionTime = 0.68 s  ClockTime = 1 s
+
+End
+

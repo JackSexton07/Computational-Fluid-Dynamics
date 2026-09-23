@@ -1,0 +1,90 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2606                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _481094f-20260618 OPENFOAM=2606 version=2606
+Arch   : "LSB;label=32;scalar=64"
+Exec   : surfaceFeatureExtract
+Date   : Sep 19 2026
+Time   : 16:21:43
+Host   : PC
+PID    : 1111
+I/O    : uncollated
+Case   : /home/jack/run/ahmed25
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+
+--> FOAM Warning : allowSystemOperations : Allowing user-supplied system call operations.
+                   This can be a security risk if running untrusted cases
+                   through e.g. 'coded' on-the-fly-compilation functionality.
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+
+Note: Feature line extraction only valid on closed manifold surfaces
+
+Reading surfaceFeatureExtractDict
+
+Surfaces     : ahmed25.stl
+Output       : ahmed25
+Load options : offset
+Write options: writeObj=yes writeVTK=off
+
+Statistics:
+Triangles    : 408 in 1 region(s)
+Vertices     : 206
+Bounding Box : (-2.84217e-17 -0.1945 0.05) (1.044 0.1945 0.338)
+
+Constructing feature set from included angle 165
+Selecting edges based purely on geometric tests: no
+Removing all non-manifold edges (edges with > 2 connected faces) unless they cross multiple regions
+
+Initial Feature set:
+    points : 6
+    edges  : 187
+    of which
+        region edges   : 0
+        external edges : 187
+        internal edges : 0
+
+Final Feature set:
+    points : 186
+    of which
+        convex             : 6
+        concave            : 0
+        mixed              : 0
+        non-feature        : 180
+    edges  : 187
+    of which
+        external edges     : 187
+        internal edges     : 0
+        flat edges         : 0
+        open edges         : 0
+        multiply connected : 0
+
+Writing extendedFeatureEdgeMesh to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25.extendedFeatureEdgeMesh"
+
+Writing extendedEdgeMesh components to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25"
+Writing 6 convex feature points to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_convexFeaturePts.obj"
+Writing 0 concave feature points to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_concaveFeaturePts.obj"
+Writing 0 mixed feature points to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_mixedFeaturePts.obj"
+Writing 0 mixed feature point structure to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_mixedFeaturePtsStructure.obj"
+Writing 187 external edges to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_externalEdges.obj"
+Writing 0 internal edges to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_internalEdges.obj"
+Writing 0 flat edges to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_flatEdges.obj"
+Writing 0 open edges to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_openEdges.obj"
+Writing 0 multiple edges to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_multipleEdges.obj"
+Writing 0 region edges to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_regionEdges.obj"
+Writing 187 edge directions to "/home/jack/run/ahmed25/constant/extendedFeatureEdgeMesh/ahmed25_edgeDirections.obj"
+
+Writing featureEdgeMesh to "/home/jack/run/ahmed25/constant/triSurface/ahmed25.eMesh"
+ExecutionTime = 0 s  ClockTime = 0 s
+
+End
+

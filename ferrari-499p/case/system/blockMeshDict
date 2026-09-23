@@ -1,0 +1,85 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| C5 Corvette case: background mesh (virtual wind tunnel)                     |
+| Car: nose at x=0, length 4.57 m, centred on y=0, tyres sunk 10 mm below z=0 |
+| Domain: x -10..25 m (~2 car lengths upstream, ~4.5 downstream)              |
+|         y -5..5 m, z 0..6 m  -> blockage ~3% of the cross-section           |
+| Background cells are 0.5 m on a side: (70 20 12) = 16,800 cells             |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale   1;
+
+vertices
+(
+    (-10 -5 0)
+    ( 25 -5 0)
+    ( 25  5 0)
+    (-10  5 0)
+    (-10 -5 6)
+    ( 25 -5 6)
+    ( 25  5 6)
+    (-10  5 6)
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (70 20 12) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    frontAndBack
+    {
+        type patch;
+        faces
+        (
+            (3 7 6 2)
+            (1 5 4 0)
+        );
+    }
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (0 4 7 3)
+        );
+    }
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (2 6 5 1)
+        );
+    }
+    lowerWall
+    {
+        type wall;
+        faces
+        (
+            (0 3 2 1)
+        );
+    }
+    upperWall
+    {
+        type patch;
+        faces
+        (
+            (4 5 6 7)
+        );
+    }
+);
+
+// ************************************************************************* //

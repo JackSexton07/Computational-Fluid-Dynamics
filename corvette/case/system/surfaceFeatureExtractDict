@@ -1,0 +1,31 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| C5 Corvette case: extract sharp edges from the car surface                  |
+| The voxel remesh rounded most edges slightly, so the default 150 deg is     |
+| enough to catch the real ones (spoiler lip, splitter, mirror edges).        |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      surfaceFeatureExtractDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+corvette.stl
+{
+    extractionMethod    extractFromSurface;
+
+    // Edges whose two faces meet at less than this angle count as features
+    includedAngle       150;
+
+    subsetFeatures
+    {
+        nonManifoldEdges    no;
+        openEdges           yes;
+    }
+
+    writeObj            yes;
+}
+
+// ************************************************************************* //

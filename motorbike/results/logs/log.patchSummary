@@ -1,0 +1,93 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2606                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _481094f-20260618 OPENFOAM=2606 version=2606
+Arch   : "LSB;label=32;scalar=64"
+Exec   : patchSummary -parallel -decomposeParDict system/decomposeParDict.6
+Date   : Sep 19 2026
+Time   : 12:56:18
+Host   : PC
+PID    : 4954
+I/O    : uncollated
+Case   : /home/jack/run/motorBike
+nProcs : 6
+Hosts  :
+(
+    (PC 6)
+)
+Pstream initialized with:
+    node communication : off [type=host] (6 ranks, 1 nodes)
+    topology controls  : none
+    consensus exchange : 0 (tuning: 0)
+    exchange algorithm : 0
+    commsType          : nonBlocking
+    polling iterations : 0
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+
+--> FOAM Warning : allowSystemOperations : Allowing user-supplied system call operations.
+                   This can be a security risk if running untrusted cases
+                   through e.g. 'coded' on-the-fly-compilation functionality.
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+Time = 0
+
+Reading fields:
+    volScalarField (k nut omega p)
+    volVectorField (U)
+
+patch	: frontAndBack
+patch	: upperWall
+    scalar		k		slip
+    scalar		nut		calculated
+    scalar		omega		slip
+    scalar		p		slip
+    vector		U		slip
+
+patch	: inlet
+    scalar		k		fixedValue
+    scalar		nut		calculated
+    scalar		omega		fixedValue
+    scalar		p		zeroGradient
+    vector		U		fixedValue
+
+patch	: outlet
+    scalar		k		inletOutlet
+    scalar		nut		calculated
+    scalar		omega		inletOutlet
+    scalar		p		fixedValue
+    vector		U		inletOutlet
+
+wall	: lowerWall
+    scalar		k		generic
+    scalar		nut		generic
+    scalar		omega		generic
+    scalar		p		zeroGradient
+    vector		U		fixedValue
+
+group	: motorBikeGroup
+    scalar		k		generic
+    scalar		nut		generic
+    scalar		omega		generic
+    scalar		p		zeroGradient
+    vector		U		noSlip
+
+group	: processor
+    scalar		k		processor
+    scalar		nut		processor
+    scalar		omega		processor
+    scalar		p		processor
+    vector		U		processor
+
+End
+
+Finalising parallel run

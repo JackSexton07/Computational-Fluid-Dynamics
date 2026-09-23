@@ -1,0 +1,321 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2606                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          controlDict;
+}
+
+application     simpleFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         1500;
+
+deltaT          1;
+
+writeControl    timeStep;
+
+writeInterval   100;
+
+purgeWrite      0;
+
+writeFormat     binary;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+functions
+{
+    streamLines
+    {
+        type            streamLine;
+        libs            ( fieldFunctionObjects );
+        writeControl    writeTime;
+        setFormat       vtk;
+        direction       forward;
+        fields          ( p U k );
+        lifeTime        10000;
+        nSubCycle       5;
+        cloud           particleTracks;
+        seedSampleSet
+        {
+            type            uniform;
+            axis            x;
+            start           ( -1.001 -0.05 0.0011 );
+            end             ( -1.001 -0.05 1.0011 );
+            nPoints         20;
+        }
+    }
+    near
+    {
+        type            nearWallFields;
+        libs            ( fieldFunctionObjects );
+        writeControl    writeTime;
+        executeControl  writeTime;
+        fields          ( ( U UNear ) );
+        patches         ( f499pGroup );
+        distance        0.001;
+    }
+    wallBoundedStreamLines
+    {
+        type            wallBoundedStreamLine;
+        libs            ( fieldFunctionObjects );
+        U               UNear;
+        fields          ( p U k UNear );
+        setFormat       vtk;
+        direction       forward;
+        lifeTime        100;
+        cloud           wallBoundedParticleTracks;
+        seedSampleSet
+        {
+            type            patchSeed;
+            uniformCoeffs
+            {
+                axis            x;
+                start           ( 0.0035 0.0999 0.0001 );
+                end             ( 0.0035 0.0999 0.0099 );
+                nPoints         20;
+            }
+            cloudCoeffs
+            {
+                axis            x;
+                points          ( ( 0.351517 -0.0116085 1.24 ) );
+            }
+            patchSeedCoeffs
+            {
+                patches         ( f499pGroup );
+                axis            x;
+                maxPoints       20000;
+            }
+        }
+        interpolationScheme cellPoint;
+        region          region0;
+        enabled         true;
+        log             true;
+        timeStart       0;
+        timeEnd         1000;
+        executeControl  timeStep;
+        executeInterval 1;
+        writeControl    writeTime;
+        writeInterval   -1;
+    }
+    cuttingPlane
+    {
+        type            surfaces;
+        libs            ( sampling );
+        writeControl    writeTime;
+        surfaceFormat   vtk;
+        fields          ( p U );
+        interpolationScheme cellPoint;
+        surfaces
+        {
+            yNormal
+            {
+                type            cuttingPlane;
+                point           ( 0 0 0 );
+                normal          ( 0 1 0 );
+                interpolate     true;
+            }
+        }
+    }
+    forceCoeffs1
+    {
+        type            forceCoeffs;
+        libs            ( forces );
+        writeControl    timeStep;
+        writeInterval   1;
+        log             yes;
+        patches         ( f499pGroup );
+        rho             rhoInf;
+        rhoInf          1;
+        liftDir         ( 0 0 1 );
+        dragDir         ( 1 0 0 );
+        CofR            ( 2.4 0 0 );
+        pitchAxis       ( 0 1 0 );
+        magUInf         40;
+        lRef            2.72;
+        Aref            2.2695;
+    }
+    ensightWrite
+    {
+        type            ensightWrite;
+        libs            ( utilityFunctionObjects );
+        log             true;
+        fields          ( U p "(k|epsilon|omega)" );
+        writeControl    writeTime;
+        writeInterval   1;
+        excludePatches  ( inlet outlet frontAndBack ".*[Ww]all" );
+    }
+    solverInfo1
+    {
+        type            solverInfo;
+        libs            ( utilityFunctionObjects );
+        fields          ( U p );
+        writeResidualFields no;
+    }
+    residualGraph1
+    {
+        type            graphFunctionObject;
+        libs            ( utilityFunctionObjects );
+        functions
+        {
+            Ux
+            {
+                object          solverInfo1;
+                entry           Ux_initial;
+            }
+            Uy
+            {
+                object          solverInfo1;
+                entry           Uy_initial;
+            }
+            Uz
+            {
+                object          solverInfo1;
+                entry           Uz_initial;
+            }
+            p
+            {
+                object          solverInfo1;
+                entry           p_initial;
+            }
+        }
+        logScaleX       no;
+        logScaleY       yes;
+        xlabel          "Iteration";
+        ylabel          "log10(Initial residual)";
+        writePrecision  6;
+        writeToFile     true;
+        useUserTime     true;
+        region          region0;
+        enabled         true;
+        log             true;
+        timeStart       0;
+        timeEnd         1000;
+        executeControl  timeStep;
+        executeInterval 1;
+        writeControl    writeTime;
+        writeInterval   -1;
+    }
+    forceCoeffsGraph1
+    {
+        type            graphFunctionObject;
+        libs            ( utilityFunctionObjects );
+        writeControl    writeTime;
+        logScaleX       no;
+        logScaleY       no;
+        xlabel          "Iteration";
+        ylabel          "Coefficient";
+        yMin            -1;
+        yMax            1;
+        functions
+        {
+            Cd
+            {
+                object          forceCoeffs1;
+                entry           Cd;
+            }
+            Cd(f)
+            {
+                object          forceCoeffs1;
+                entry           Cd(f);
+            }
+            Cd(r)
+            {
+                object          forceCoeffs1;
+                entry           Cd(r);
+            }
+            Cl
+            {
+                object          forceCoeffs1;
+                entry           Cl;
+            }
+            Cl(f)
+            {
+                object          forceCoeffs1;
+                entry           Cl(f);
+                title           Cl(f);
+            }
+            Cl(r)
+            {
+                object          forceCoeffs1;
+                entry           Cl(r);
+                title           Cl(r);
+            }
+        }
+    }
+    foamReport1
+    {
+        type            foamReport;
+        libs            ( utilityFunctionObjects );
+        writeControl    writeTime;
+        template        "<system>/myReportTemplate.md";
+        substitutions
+        {
+            timing1
+            {
+                type            fileRegEx;
+                path            "log.simpleFoam";
+                entries
+                {
+                    executionTime   "ExecutionTime = (.*) s  Clock.*";
+                }
+            }
+            divSchemes1
+            {
+                type            dictionaryValue;
+                path            "<system>/fvSchemes";
+                entries
+                {
+                    divSchemes      "divSchemes";
+                }
+            }
+            fvSolution1
+            {
+                type            dictionaryValue;
+                path            "<system>/fvSolution";
+                entries
+                {
+                    solver_p        "solvers/p/solver";
+                    solver_p_tol    "solvers/p/tolerance";
+                    solver_p_reltol "solvers/p/relTol";
+                    solver_U        "solvers/U/solver";
+                    solver_U_tol    "solvers/U/tolerance";
+                    solver_U_reltol "solvers/U/relTol";
+                }
+            }
+            controlDict1
+            {
+                type            dictionaryValue;
+                path            "<system>/controlDict";
+                entries
+                {
+                    initial_deltaT  "deltaT";
+                }
+            }
+        }
+    }
+}
+
+
+// ************************************************************************* //

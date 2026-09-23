@@ -1,0 +1,90 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2606                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _481094f-20260618 OPENFOAM=2606 version=2606
+Arch   : "LSB;label=32;scalar=64"
+Exec   : surfaceFeatureExtract
+Date   : Sep 22 2026
+Time   : 19:59:56
+Host   : PC
+PID    : 2034
+I/O    : uncollated
+Case   : /home/jack/run/499p
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+
+--> FOAM Warning : allowSystemOperations : Allowing user-supplied system call operations.
+                   This can be a security risk if running untrusted cases
+                   through e.g. 'coded' on-the-fly-compilation functionality.
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+
+Note: Feature line extraction only valid on closed manifold surfaces
+
+Reading surfaceFeatureExtractDict
+
+Surfaces     : f499p.stl
+Output       : f499p
+Load options : offset
+Write options: writeObj=yes writeVTK=off
+
+Statistics:
+Triangles    : 841330 in 1 region(s)
+Vertices     : 420229
+Bounding Box : (-2.44655 -1.01187 -0.0747248) (2.5441 1.01187 1.14828)
+
+Constructing feature set from included angle 150
+Selecting edges based purely on geometric tests: no
+Removing all non-manifold edges (edges with > 2 connected faces) unless they cross multiple regions
+
+Initial Feature set:
+    points : 32860
+    edges  : 82785
+    of which
+        region edges   : 0
+        external edges : 52326
+        internal edges : 30459
+
+Final Feature set:
+    points : 84523
+    of which
+        convex             : 14280
+        concave            : 6385
+        mixed              : 12195
+        non-feature        : 51663
+    edges  : 82785
+    of which
+        external edges     : 52326
+        internal edges     : 30459
+        flat edges         : 0
+        open edges         : 0
+        multiply connected : 0
+
+Writing extendedFeatureEdgeMesh to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p.extendedFeatureEdgeMesh"
+
+Writing extendedEdgeMesh components to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p"
+Writing 14280 convex feature points to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_convexFeaturePts.obj"
+Writing 6385 concave feature points to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_concaveFeaturePts.obj"
+Writing 12195 mixed feature points to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_mixedFeaturePts.obj"
+Writing 12195 mixed feature point structure to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_mixedFeaturePtsStructure.obj"
+Writing 52326 external edges to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_externalEdges.obj"
+Writing 30459 internal edges to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_internalEdges.obj"
+Writing 0 flat edges to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_flatEdges.obj"
+Writing 0 open edges to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_openEdges.obj"
+Writing 0 multiple edges to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_multipleEdges.obj"
+Writing 0 region edges to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_regionEdges.obj"
+Writing 82785 edge directions to "/home/jack/run/499p/constant/extendedFeatureEdgeMesh/f499p_edgeDirections.obj"
+
+Writing featureEdgeMesh to "/home/jack/run/499p/constant/triSurface/f499p.eMesh"
+ExecutionTime = 2 s  ClockTime = 2 s
+
+End
+
