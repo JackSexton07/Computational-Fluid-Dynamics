@@ -70,8 +70,8 @@ def main():
         pad = 0.15 * (hi - lo)
         ax1.set_ylim(lo - pad, hi + pad)
         ax1.set_ylabel("coefficient")
-        ax1.set_title(f"{label}: force coefficients and residuals")
-        ax1.legend(loc="center right", ncol=3, fontsize=8)
+        fig.suptitle(f"{label}: force coefficients and residuals")
+        ax1.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=3, frameon=False)
         ax1.grid(alpha=0.3)
         for i, name in enumerate(["Ux", "Uy", "Uz", "p"], start=1):
             ax2.semilogy(res[:, 0], res[:, i], label=name, lw=0.8)

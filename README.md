@@ -36,7 +36,7 @@ geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
 | Discretisation | Bounded `linearUpwindV` for momentum, GAMG for pressure |
 | Initialisation | `potentialFoam` |
 | Run | 1500 iterations (500 for motorBike), decomposed across 6 cores |
-| Convergence | Residuals level off at 10⁻²–10⁻³ (normal for steady RANS on bluff bodies), so convergence is judged by Cd and Cl settling to a steady mean |
+| Convergence | Residuals level off around 10⁻² (10⁻³ for some velocity components) (normal for steady RANS on bluff bodies), so convergence is judged by Cd and Cl settling to a steady mean |
 
 ## Lessons learned
 

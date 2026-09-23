@@ -34,7 +34,8 @@ This is the suction over the slant and the vortices at the C-pillars.
 - **Drag within 6 % of the experiment** is a reasonable result for steady RANS
   at a 25° slant. That angle sits just below the critical ~30°, where the flow over the slant
   switches from partly attached to fully separated, so it's a sensitive regime.
-- **The lift oscillates by about ±28 %** while drag holds within 1 %. The separation bubble
+- **The lift oscillates by about ±28 %** while drag holds within 1 %. The oscillation is a very
+  regular cycle of about 20 iterations (see the plot above), and the separation bubble
   on the slant doesn't reach a steady state, which suggests the flow is unsteady in
   reality. A time-accurate simulation (URANS or DES) would capture this better.
 - **Possible causes of the drag difference:** a single prism layer and wall functions
