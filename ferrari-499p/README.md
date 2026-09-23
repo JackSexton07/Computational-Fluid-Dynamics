@@ -4,10 +4,15 @@ External aerodynamics of the Ferrari 499P, a Le Mans Hypercar. It's the only car
 this set designed to produce downforce, so this case looks at how that downforce
 is split between the front and rear.
 
-![Streamlines, front](results/streamlines_front.png)
-![Streamlines, rear](results/streamlines_rear.png)
+| ![Front three-quarter view](results/streamlines_front.png) |
+|:--:|
+| Front three-quarter view |
 
-*Streamlines coloured by velocity magnitude (m/s), 1000 seeds.*
+| ![Rear three-quarter view](results/streamlines_rear.png) |
+|:--:|
+| Rear three-quarter view |
+
+*Body surface coloured by kinematic pressure p (m²/s², fixed range −2000 to +840; +800 is the stagnation value ½U² at 40 m/s). Streamlines coloured by velocity magnitude (m/s).*
 
 ![Convergence](results/convergence.png)
 
@@ -50,7 +55,7 @@ OpenFOAM's `p` is kinematic (pressure divided by density, in m²/s²). At 40 m/s
 stagnation point down to a few thousand negative. In the final solution, 150 cells fall below −3,000 and the
 minimum is −45,856, while 99.99 % of cells lie between −2,050 and +800. These cells sit next to the highly skewed
 faces reported by `checkMesh`. They're too few to affect the integrated forces, but they stretch the automatic colour
-range in ParaView (see the legend in the image above), so pressure plots should use a fixed range.
+range in ParaView, which is why the images above use a fixed range of −2000 to +840.
 The fix is to improve the local mesh quality there (surface repair, snapping controls or mesh-quality settings in
 `snappyHexMeshDict`).
 

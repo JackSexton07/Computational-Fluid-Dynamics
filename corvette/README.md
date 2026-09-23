@@ -2,9 +2,19 @@
 
 External aerodynamics of a production sports car (C5 generation, 1997–2004).
 
-![Streamlines](results/streamlines.png)
+| ![Front three-quarter view](results/streamlines_front.png) |
+|:--:|
+| Front three-quarter view |
 
-*Streamlines coloured by kinematic pressure. Note the low-pressure wake behind the car.*
+| ![Rear three-quarter view](results/streamlines_rear.png) |
+|:--:|
+| Rear three-quarter view |
+
+| ![Underside, viewed from below (flow runs top to bottom)](results/streamlines_floor.png) |
+|:--:|
+| Underside, viewed from below (flow runs top to bottom) |
+
+*Body surface coloured by kinematic pressure p (m²/s², fixed range −2000 to +840; +800 is the stagnation value ½U² at 40 m/s). Streamlines coloured by velocity magnitude (m/s).*
 
 ![Convergence](results/convergence.png)
 
@@ -38,7 +48,7 @@ OpenFOAM's `p` is kinematic (pressure divided by density, in m²/s²). At 40 m/s
 stagnation point down to a few thousand negative. In the final solution, 69 cells fall below −3,000 and the
 minimum is −13,325, while 99.99 % of cells lie between −1,507 and +800. These cells sit next to the highly skewed
 faces reported by `checkMesh`. They're too few to affect the integrated forces, but they stretch the automatic colour
-range in ParaView (see the legend in the image above), so pressure plots should use a fixed range.
+range in ParaView, which is why the images above use a fixed range of −2000 to +840.
 The fix is to improve the local mesh quality there (surface repair, snapping controls or mesh-quality settings in
 `snappyHexMeshDict`).
 

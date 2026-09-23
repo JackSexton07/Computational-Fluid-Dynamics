@@ -2,9 +2,19 @@
 
 External aerodynamics of a production muscle car.
 
-![Streamlines](results/streamlines.png)
+| ![Front three-quarter view](results/streamlines_front.png) |
+|:--:|
+| Front three-quarter view |
 
-*A line of streamlines seeded across the car, coloured by kinematic pressure (m²/s²).*
+| ![Rear three-quarter view](results/streamlines_rear.png) |
+|:--:|
+| Rear three-quarter view |
+
+| ![Underside, viewed from below (flow runs top to bottom)](results/streamlines_floor.png) |
+|:--:|
+| Underside, viewed from below (flow runs top to bottom) |
+
+*Body surface coloured by kinematic pressure p (m²/s², fixed range −2000 to +840; +800 is the stagnation value ½U² at 40 m/s). Streamlines coloured by velocity magnitude (m/s).*
 
 ![Convergence](results/convergence.png)
 
