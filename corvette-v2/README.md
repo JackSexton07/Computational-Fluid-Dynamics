@@ -99,7 +99,7 @@ RAM per million cells, the 25 GB available limits this machine to roughly 12 M c
 With the ground moving at 40 m/s but the wheels stationary, the contact patches were scraping
 along the road and the tops of the tyres were standing still in the airflow. Real wheels roll.
 
-1. **Splitting the geometry.** The Sketchfab model is a single welded surface, so I wrote
+1. **Splitting the geometry.** The Sketchfab model is a single welded surface, so I had Claude Code write
    [`tools/split_wheels.py`](../tools/split_wheels.py). It labels every triangle inside each wheel's cylinder as its own STL
    region (`wheel_FL`, `wheel_FR`, `wheel_RL`, `wheel_RR`). The axle centres and radii were fitted
    from the tyre geometry and agree with the C5's published tyre sizes (245/45ZR17 front, 275/40ZR18 rear)
