@@ -1,5 +1,8 @@
 # Chevrolet Corvette C5
 
+> **Superseded by [Corvette C5 v2](../corvette-v2/),** which traces this run's 17 % gap to the
+> published Cd to domain blockage and stationary wheels, and brings it down to 7 %.
+
 External aerodynamics of a production sports car (C5 generation, 1997–2004).
 
 | ![Front three-quarter view](results/streamlines_front.png) |

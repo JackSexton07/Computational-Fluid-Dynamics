@@ -1,0 +1,16 @@
+Run 2 (stationary wheels) - wheel pressure forces, integrated from the surface
+pressure at iteration 1500 (single snapshot, pressure only, no skin friction).
+Wheel faces selected with the same cylinders as constant/triSurface/wheels.json.
+Reference: Aref 1.989 m2, U 40 m/s.
+
+Whole car pressure Cd 0.3085, pressure Cl 0.0891
+
+wheel  pressure Cd   Cl
+FL     0.0237      +0.0014
+FR     0.0327      +0.0072
+RL     0.0151      -0.0010
+RR     0.0154      +0.0052
+ALL    0.0869      +0.0127   (28% of the car's pressure drag)
+
+Compare with Run 3's postProcessing/wheelCoeffs (same reference values).
+Note: wheelCoeffs includes skin friction, which is small (whole car ~6%).

@@ -1,0 +1,141 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2606                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _481094f-20260618 OPENFOAM=2606 version=2606
+Arch   : "LSB;label=32;scalar=64"
+Exec   : checkMesh -parallel -decomposeParDict system/decomposeParDict.8 -writeFields (nonOrthoAngle) -constant
+Date   : Sep 23 2026
+Time   : 19:01:37
+Host   : PC
+PID    : 7728
+I/O    : uncollated
+Case   : /home/jack/run/corvette_v2
+nProcs : 8
+Hosts  :
+(
+    (PC 8)
+)
+Pstream initialized with:
+    node communication : off [type=host] (8 ranks, 1 nodes)
+    topology controls  : none
+    consensus exchange : 0 (tuning: 0)
+    exchange algorithm : 0
+    commsType          : nonBlocking
+    polling iterations : 0
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+memory pool : not available
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+
+--> FOAM Warning : allowSystemOperations : Allowing user-supplied system call operations.
+                   This can be a security risk if running untrusted cases
+                   through e.g. 'coded' on-the-fly-compilation functionality.
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = constant
+
+Check mesh...
+    Writing mesh quality as fields (nonOrthoAngle)
+
+Time = constant
+
+Mesh stats 
+    points:           11220212
+    faces:            32231249
+    internal faces:   31527664
+    cells:            10526874
+    faces per cell:   6.05678
+    boundary patches: 6 (8 10)
+    point zones:      1
+    face zones:       0
+    cell zones:       1
+
+Overall number of cells of each type:
+    hexahedra:     10067375
+    prisms:        54509
+    wedges:        0
+    pyramids:      0
+    tet wedges:    3134
+    tetrahedra:    63
+    polyhedra:     401793
+    Breakdown of polyhedra by number of faces:
+        faces   number of cells
+            4   36491
+            5   27276
+            6   38106
+            7   108462
+            8   36187
+            9   127604
+           10   2377
+           11   390
+           12   14755
+           13   91
+           14   98
+           15   8566
+           16   5
+           17   20
+           18   1355
+           20   1
+           21   9
+
+Checking topology...
+    Boundary definition OK.
+    Cell to face addressing OK.
+    Point usage OK.
+    Upper triangular ordering OK.
+    Face vertices OK.
+    Number of regions: 1 (OK).
+
+Checking patch topology for multiply connected surfaces...
+                   Patch    Faces   Points  Surface topology
+            frontAndBack     5520     5952  ok (non-closed singly connected)
+                   inlet      920     1008  ok (non-closed singly connected)
+                  outlet      920     1008  ok (non-closed singly connected)
+               lowerWall   105208   107896  ok (non-closed singly connected)
+               upperWall     4800     5208  ok (non-closed singly connected)
+                corvette   346703   388750  multiply connected (shared edge)
+                    ".*"   464071   508711  multiply connected (shared edge)
+
+Detected 3 bad edges (possibly relevant for finite-area)
+
+Checking faceZone topology for multiply connected surfaces...
+    No faceZones found.
+  <<Writing 6 conflicting points to set nonManifoldPoints
+
+Checking basic cellZone addressing...
+                CellZone        Cells       Points       VolumeBoundingBox
+                  inner      2602340      2844524      10.6942 (-1.0076 -0.510501 -6.07153e-18) (6.0009 0.511184 2.00766)
+
+Checking basic pointZone addressing...
+               PointZone  PointsBoundingBox
+            frozenPoints       0(1e+150 1e+150 1e+150) (-1e+150 -1e+150 -1e+150)
+
+Checking geometry...
+    Overall domain bounding box (-15 -10 -9.71445e-17) (45 10 10)
+    Mesh has 3 geometric (non-empty/wedge) directions (1 1 1)
+    Mesh has 3 solution (non-empty) directions (1 1 1)
+    Boundary openness (-9.09567e-17 -2.58853e-16 5.53334e-16) OK.
+    Max cell openness = 8.03348e-16 OK.
+    Max aspect ratio = 29.6622 OK.
+    Minimum face area = 1.47102e-07. Maximum face area = 0.272225.  Face area magnitudes OK.
+    Min volume = 1.59888e-09. Max volume = 0.131141.  Total volume = 11994.5.  Cell volumes OK.
+    Mesh non-orthogonality Max: 64.989 average: 5.35718
+    Non-orthogonality check OK.
+    Face pyramids OK.
+ ***Max skewness = 10.535, 21 highly skew faces detected which may impair the quality of the results
+  <<Writing 21 skew faces to set skewFaces
+    Coupled point location match (average 0) OK.
+
+Failed 1 mesh checks.
+
+Writing fields with mesh quality parameters
+    Writing non-orthogonality (angle) to nonOrthoAngle
+
+End
+
+Finalising parallel run

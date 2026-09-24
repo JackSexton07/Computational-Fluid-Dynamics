@@ -8,13 +8,22 @@ convergence histories and mesh-quality logs.
 
 ![Summary of force coefficients](summary.png)
 
+### Highlight: [Corvette C5 v2](corvette-v2/)
+
+The first Corvette run was 17 % above GM's published Cd of 0.29. Changing one thing at a time
+measured each cause separately: domain blockage (−9 counts), near-wall and wake refinement (no change in drag,
+−24 % lift) and rotating wheels (−20 counts, half of it on the body). That brought the gap to **+7 %**.
+
+![Corvette progression](corvette-v2/results/progression.png)
+
 ## Results
 
 | Case | Cells | Cd | Cl | Notes |
 |---|---:|---:|---:|---|
 | [Ahmed body, 25° slant](ahmed-body/) | 8.4 M | **0.268** ± 0.001 | +0.283 ± 0.078 | Validation case. Experiment: Cd ≈ 0.285 (−6 %) |
 | [Ferrari 499P (LMH)](ferrari-499p/) | 4.7 M | 0.419 ± 0.002 | **−0.381** ± 0.019 | Only car producing net downforce; 85 % of it at the rear |
-| [Chevrolet Corvette C5](corvette/) | 3.7 M | 0.340 ± 0.002 | +0.118 ± 0.006 | Most steady solution of the set |
+| [Chevrolet Corvette C5](corvette/) | 3.7 M | 0.340 ± 0.002 | +0.118 ± 0.006 | First run; superseded by v2 |
+| [Chevrolet Corvette C5 v2](corvette-v2/) | 10.5 M | **0.311** ± 0.003 | +0.080 ± 0.009 | Larger domain, 3 layers, rotating wheels. Published Cd 0.29 (+7 %) |
 | [Ford Mustang Shelby (2012)](mustang/) | 3.9 M | 0.403 ± 0.008 | −0.155 ± 0.036 | Restarted from iteration 1300 after an interrupted run |
 | [motorBike (OpenFOAM tutorial)](motorbike/) | 0.35 M | 0.416 ± 0.001 | +0.071 ± 0.002 | Baseline used to learn the workflow |
 
@@ -22,19 +31,20 @@ Coefficients are the mean ± one standard deviation over the last 300 iterations
 referenced to each vehicle's frontal area. The frontal areas were measured from the
 geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
 
-## Method (common to all cases)
+## Method (common to all cases; Corvette v2 differences in brackets)
 
 | | |
 |---|---|
 | Solver | `simpleFoam`: steady, incompressible, SIMPLE algorithm |
+| Domain | 35 × 10 × 6 m with slip side and top walls, about 3 % blockage for the cars (v2: 60 × 20 × 10 m, 1 %) |
 | Turbulence | k-ω SST, wall functions (mean y+ ≈ 60–90 where measured) |
 | Freestream | 40 m/s (20 m/s for motorBike), ν = 1.5×10⁻⁵ m²/s |
 | Ground | Moving wall at freestream speed (no ground boundary layer) |
-| Wheels | Stationary (not rotating) |
-| Mesh | `blockMesh` background + `snappyHexMesh` (castellated, snapped, 1 prism layer) |
+| Wheels | Stationary (v2: rotating, `rotatingWallVelocity`) |
+| Mesh | `blockMesh` background + `snappyHexMesh` (castellated, snapped, 1 prism layer; v2: 3 layers and a 16 mm box around the car and near wake) |
 | Discretisation | Bounded `linearUpwindV` for momentum, GAMG for pressure |
 | Initialisation | `potentialFoam` |
-| Run | 1500 iterations (500 for motorBike), decomposed across 6 cores |
+| Run | 1500 iterations (500 for motorBike), decomposed across 6 cores (v2: 8) |
 | Convergence | Residuals level off around 10⁻² (10⁻³ for some velocity components) (normal for steady RANS on bluff bodies), so convergence is judged by Cd and Cl settling to a steady mean |
 
 ## Lessons learned
@@ -54,6 +64,12 @@ geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
   the physical range is about −2,000 to +800). That's 3 cells out of 4.7 M, too few to
   change the integrated forces, but enough to stretch ParaView's automatic colour scale. The Ahmed
   body, with no skewed faces, doesn't have this problem, which points to mesh quality as the cause.
+- **Size the domain for blockage.** The original domain blocked 3.3 % of the flow around the Corvette. With slip
+  walls, that acts like a small wind tunnel and adds drag. Enlarging it to 1 % blockage removed 9 counts of drag.
+- **Drag and lift converge differently.** Tripling the Corvette's mesh left Cd unchanged (−0.03 %) but moved Cl by −24 %.
+  Check mesh sensitivity for each quantity you report.
+- **Wheels matter beyond their own area.** Rotating the Corvette's wheels cut Cd by 6 %, half of it on the body,
+  because a stationary tyre's wake disturbs the wheel wells, sides and underbody.
 - **Downloaded visual models need repair before meshing.** The Sketchfab cars had to be
   cleaned, welded and closed into watertight surfaces before `snappyHexMesh` would
   produce a usable mesh.
@@ -70,8 +86,10 @@ geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
     yPlus/         y+ statistics (where computed)
     logs/          blockMesh, snappyHexMesh, checkMesh logs; solver log (.gz)
     convergence.png
+    run1/, run2/ ... multi-run studies keep each run's results separately (see corvette-v2)
 tools/
   frontal_area.py  frontal area from an STL
+  split_wheels.py  labels wheels as separate STL regions so they can rotate
   plot_results.py  regenerates every plot and the summary table numbers
 ```
 

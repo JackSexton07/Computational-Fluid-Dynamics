@@ -1,0 +1,84 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2606                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include        "include/initialConditions"
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform $flowVelocity;
+
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"
+
+    #include "include/fixedInlet"
+
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform (0 0 0);
+        value           $internalField;
+    }
+
+    lowerWall
+    {
+        type            fixedValue;
+        value           $internalField;
+    }
+
+    corvetteGroup
+    {
+        type            noSlip;
+    }
+
+    // Rolling wheels. The contact patch must move with the ground (+x at 40 m/s),
+    // so omega = -U / r about +y, with r = axle height above the ground.
+    // Front: 40 / 0.317 = 126.2 rad/s   Rear: 40 / 0.329 = 121.6 rad/s
+    // These exact patch names take priority over the corvetteGroup entry above.
+    corvette_wheel_FL
+    {
+        type            rotatingWallVelocity;
+        origin          (0.9965 0 0.317);
+        axis            (0 1 0);
+        omega           -126.2;
+    }
+    corvette_wheel_FR
+    {
+        type            rotatingWallVelocity;
+        origin          (0.9965 0 0.317);
+        axis            (0 1 0);
+        omega           -126.2;
+    }
+    corvette_wheel_RL
+    {
+        type            rotatingWallVelocity;
+        origin          (3.6476 0 0.329);
+        axis            (0 1 0);
+        omega           -121.6;
+    }
+    corvette_wheel_RR
+    {
+        type            rotatingWallVelocity;
+        origin          (3.6476 0 0.329);
+        axis            (0 1 0);
+        omega           -121.6;
+    }
+
+    #include "include/frontBackUpperPatches"
+}
+
+
+// ************************************************************************* //

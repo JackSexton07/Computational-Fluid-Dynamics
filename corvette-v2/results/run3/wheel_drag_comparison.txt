@@ -1,0 +1,15 @@
+Pressure-only forces at iteration 1500 (single snapshot), same wheel cylinders
+as constant/triSurface/wheels.json. Aref 1.989 m2, U 40 m/s.
+
+                 Run 2 (stationary)   Run 3 (rotating)   change
+wheel FL             0.0237              0.0232          -0.0005
+wheel FR             0.0327              0.0291          -0.0036
+wheel RL             0.0151              0.0130          -0.0021
+wheel RR             0.0154              0.0142          -0.0012
+all wheels           0.0869              0.0795          -0.0074
+body                 0.2216              0.2147          -0.0069
+car (pressure)       0.3085              0.2942          -0.0143
+
+Averaged over the last 300 iterations (forceCoeffs1, includes skin friction):
+Run 2 Cd 0.3309 -> Run 3 Cd 0.3112 (-0.0197, -6.0%)
+Run 3 wheelCoeffs (wheels only, incl. friction): Cd 0.0802, Cl +0.0122

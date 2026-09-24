@@ -1,0 +1,8 @@
+# y+ ()       
+# Time        	patch         	min           	max           	average       
+1500          	lowerWall	1.702329e+01	4.351527e+03	1.396333e+02
+1500          	corvette_body	3.755456e-02	1.507737e+03	7.290469e+01
+1500          	corvette_wheel_FL	1.964431e+00	1.000973e+03	1.265154e+02
+1500          	corvette_wheel_FR	2.277389e+00	1.239652e+03	1.279183e+02
+1500          	corvette_wheel_RL	4.452239e+00	8.753609e+02	1.160401e+02
+1500          	corvette_wheel_RR	5.291815e+00	9.014670e+02	1.141068e+02
