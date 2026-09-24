@@ -1,7 +1,6 @@
 # Automotive External Aerodynamics with OpenFOAM
 
-Steady RANS simulations of a validation body and several road and race cars, built
-and run in OpenFOAM v2606. Every case includes its complete setup, so you can
+Steady RANS simulations of a several road and race cars, run in OpenFOAM v2606. Every case includes its complete setup, so you can
 reproduce it with a single `./Allrun`. The results include force coefficients,
 convergence histories and mesh-quality logs.
 
