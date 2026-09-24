@@ -1,6 +1,6 @@
 # Automotive External Aerodynamics with OpenFOAM
 
-Steady RANS simulations of a several road and race cars, run in OpenFOAM v2606. Every case includes its complete setup, so you can
+Steady RANS simulations of a validation body and several road and race cars, run in OpenFOAM v2606. Every case includes its complete setup, so you can
 reproduce it with a single `./Allrun`. The results include force coefficients,
 convergence histories and mesh-quality logs.
 
@@ -50,10 +50,12 @@ geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
 ## Lessons learned
 
 - **Check that the reference values match the geometry.** The 499P was first run with the
-  Mustang's reference area, carried over from the Mustang case. That made its Cd and Cl 28 % too small.
-  Coefficients scale exactly with 1/Aref, so I corrected them in post-processing. The
+  Mustang's reference area. Its `controlDict`, copied from the Mustang case, had the force settings
+  written directly into it, so the 499P values in `system/forceCoeffs` were never read. That made its Cd and Cl
+  28 % too small. Coefficients scale exactly with 1/Aref, so I corrected them in post-processing. The
   pitching moments can't be corrected this way, because the moment reference point also
-  differed. The corrected setup is the one in the repo.
+  differed. The case in the repo is fixed. Checking the header of `coefficient.dat` after every run
+  would have caught this immediately.
 - **Measure reference areas; don't estimate them.** `frontal_area.py` projects the STL onto
   the y–z plane. For the Corvette it gave 1.989 m² against a 1.95 m² estimate, which resulted in a 2 % change in Cd.
 - **Steady RANS on bluff bodies doesn't settle completely.** Lift on the Ahmed body

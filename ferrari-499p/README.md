@@ -40,13 +40,20 @@ is split between the front and rear.
 
 ## Correction applied to the results
 
-The solver ran with the Mustang's
-reference area (2.2695 m²) and length, carried over from the Mustang case. The raw `coefficient.dat` is kept exactly as the
-solver wrote it, and its header shows the values that were used. Force coefficients
-scale with 1/Aref, so the Cd and Cl above are the raw values multiplied by
-2.2695 / 1.6437 = 1.381. The moment coefficients also depend on the reference length and
-moment reference point, so they aren't corrected and shouldn't be used. `system/forceCoeffs`
-in this repo contains the correct values.
+The solver ran with the Mustang's reference area (2.2695 m²), length and moment
+reference point. The case was built from the Mustang's, and its `controlDict` contained a
+full copy of the Mustang's `forceCoeffs1` block instead of `#include "forceCoeffs"`. The
+function object inside `controlDict` was the one OpenFOAM used, so the 499P values
+written into `system/forceCoeffs` were never read. That file also had a malformed patch
+name, `( 499 pGroup )` instead of `( f499pGroup )`, which went unnoticed for the same reason.
+
+The raw `coefficient.dat` is kept exactly as the solver wrote it, and its header shows the
+values that were used. Force coefficients scale with 1/Aref, so the Cd and Cl above are the
+raw values multiplied by 2.2695 / 1.6437 = 1.381. The moment coefficients also depend on the
+reference length and moment reference point, so they aren't corrected and shouldn't be used.
+
+The case in this repo is fixed: `controlDict` now includes `system/forceCoeffs`, which has
+the 499P's values and the correct patch name, so a re-run writes correct coefficients directly.
 
 
 ## Nonphysical pressure in a few cells

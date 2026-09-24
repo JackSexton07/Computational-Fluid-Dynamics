@@ -13,7 +13,7 @@ forceCoeffs1
     writeControl    timeStep;
     writeInterval   1;
     log             yes;
-    patches         ( 499 pGroup );
+    patches         ( f499pGroup );
     rho             rhoInf;
     rhoInf          1;
     liftDir         ( 0 0 1 );
