@@ -16,6 +16,14 @@ measured each cause separately: domain blockage (−9 counts), near-wall and wak
 
 ![Corvette progression](corvette-v2/results/progression.png)
 
+### Highlight: [Mustang Shelby v2](mustang-v2/)
+
+The Mustang showed front *downforce*, which is unusual for a road car, and it survived every setup fix. Surface-pressure
+analysis traces it to the tall nose: suction under the air dam and stagnation on the splitter (real design effects),
+plus stagnation on the model's closed grille and intake (an artifact, since the visual model has no cooling flow).
+
+![Mustang lift distribution](mustang-v2/results/analysis/lift_distribution.png)
+
 ## Results
 
 | Case | Cells | Cd | Cl | Notes |
@@ -24,14 +32,15 @@ measured each cause separately: domain blockage (−9 counts), near-wall and wak
 | [Ferrari 499P (LMH)](ferrari-499p/) | 4.7 M | 0.419 ± 0.002 | **−0.381** ± 0.019 | Only car producing net downforce; 85 % of it at the rear |
 | [Chevrolet Corvette C5](corvette/) | 3.7 M | 0.340 ± 0.002 | +0.118 ± 0.006 | First run; superseded by v2 |
 | [Chevrolet Corvette C5 v2](corvette-v2/) | 10.5 M | **0.311** ± 0.003 | +0.080 ± 0.009 | Larger domain, 3 layers, rotating wheels. Published Cd 0.29 (+7 %) |
-| [Ford Mustang Shelby (2012)](mustang/) | 3.9 M | 0.403 ± 0.008 | −0.155 ± 0.036 | Restarted from iteration 1300 after an interrupted run |
+| [Ford Mustang Shelby (2012)](mustang/) | 3.9 M | 0.403 ± 0.008 | −0.155 ± 0.036 | First run; superseded by v2 |
+| [Ford Mustang Shelby v2](mustang-v2/) | 10.3 M | **0.352** ± 0.004 | −0.164 ± 0.008 | Corvette v2 setup. Front downforce traced to the nose and closed grille |
 | [motorBike (OpenFOAM tutorial)](motorbike/) | 0.35 M | 0.416 ± 0.001 | +0.071 ± 0.002 | Baseline used to learn the workflow |
 
 Coefficients are the mean ± one standard deviation over the last 300 iterations,
 referenced to each vehicle's frontal area. The frontal areas were measured from the
 geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
 
-## Method (common to all cases; Corvette v2 differences in brackets)
+## Method (common to all cases; v2 differences in brackets)
 
 | | |
 |---|---|
@@ -72,6 +81,9 @@ geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
   Check mesh sensitivity for each quantity you report.
 - **Wheels matter beyond their own area.** Rotating the Corvette's wheels cut Cd by 6 %, half of it on the body,
   because a stationary tyre's wake disturbs the wheel wells, sides and underbody.
+- **Visual models have no cooling flow.** Their grilles and intakes are solid, so air stagnates against them.
+  On the Mustang's large upright grille, that added about −0.085 of front downforce that the real car wouldn't have.
+  Surface-pressure breakdowns show which surfaces a force comes from before you trust it.
 - **Downloaded visual models need repair before meshing.** The Sketchfab cars had to be
   cleaned, welded and closed into watertight surfaces before `snappyHexMesh` would
   produce a usable mesh.
@@ -91,7 +103,7 @@ geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
     run1/, run2/ ... multi-run studies keep each run's results separately (see corvette-v2)
 tools/
   frontal_area.py  frontal area from an STL
-  split_wheels.py  labels wheels as separate STL regions so they can rotate
+  split_wheels.py  labels wheels as separate STL regions so they can rotate (with exclusion boxes for suspension)
   plot_results.py  regenerates every plot and the summary table numbers
 ```
 

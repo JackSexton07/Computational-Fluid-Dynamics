@@ -1,0 +1,8 @@
+# y+ ()       
+# Time        	patch         	min           	max           	average       
+1500          	lowerWall	1.670062e+01	4.468170e+03	1.117421e+02
+1500          	mustang_body	3.852889e-02	1.496446e+03	8.369921e+01
+1500          	mustang_wheel_FL	3.203331e+00	1.211937e+03	1.080420e+02
+1500          	mustang_wheel_FR	2.882399e+00	1.014561e+03	1.000508e+02
+1500          	mustang_wheel_RL	2.929498e+00	9.488993e+02	1.141809e+02
+1500          	mustang_wheel_RR	2.410932e+00	8.504459e+02	1.010516e+02

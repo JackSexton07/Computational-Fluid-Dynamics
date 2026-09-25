@@ -1,5 +1,8 @@
 # Ford Mustang Shelby (2012)
 
+> **Superseded by [Mustang Shelby v2](../mustang-v2/),** which re-runs the car with the validated
+> Corvette v2 setup (Cd 0.403 → 0.352) and traces the front downforce to the nose design and the model's closed grille.
+
 External aerodynamics of a production muscle car.
 
 | ![Front three-quarter view](results/streamlines_front.png) |

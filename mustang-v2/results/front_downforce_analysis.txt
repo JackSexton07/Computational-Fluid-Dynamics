@@ -1,0 +1,32 @@
+Mustang v2: where the front downforce comes from (pressure forces at iteration 1500)
+Reference: Aref 2.2695 m2, U 40 m/s. Negative Cl = downforce.
+
+Body lift by region (wheels excluded):
+                        upper surfaces   lower surfaces   net
+ahead of front axle        +0.105          -0.227        -0.122
+front axle to mid          +0.137          -0.341        -0.204
+mid to rear axle           +0.405          -0.152        +0.253
+behind rear axle           +0.053          -0.189        -0.135
+Wheels: +0.038   Car total (pressure only): -0.170
+
+Corvette v2 Run 3, ahead of front axle: upper +0.190, lower -0.123, net +0.068 (lift)
+
+Nose surfaces, first 0.3 m:
+  upward-facing surface             area m2   mean Cp    Cl       real or model artifact
+  splitter top (z < 0.24 m)          0.189     +0.65   -0.045    real (a splitter's job)
+  lower intake ledges (0.24-0.45)    0.121     +0.76   -0.027    artifact: intake is closed
+  upper grille ledges (0.45-0.70)    0.319     +0.48   -0.058    artifact: grille is closed
+  bumper/hood leading edge (>0.70)   0.315     -0.56   +0.061    real (suction over the nose)
+  chin underside, 0.10<x<0.45 m,
+  facing down, z 0.17-0.35 m         0.753     -0.46   -0.162    real design effect (air dam),
+                                                                  magnitude affected by missing
+                                                                  cooling flow
+
+Geometry: nose leading edge 0.17 m above ground (Corvette 0.09 m); underbody 0.146 m at mid-wheelbase
+(Corvette 0.114 m).
+
+Interpretation: the air dam, chin and splitter are designed to reduce front lift, and the model shows that.
+About -0.085 of the nose's pressure lift comes from stagnation on the closed grille and intake surfaces,
+which don't exist on the real car (air flows through the radiator into the engine bay). The real car's
+cooling flow would also raise pressure under the hood and front underbody, adding front lift. So the model
+overpredicts front downforce; the real car most likely has small front lift or close to zero.

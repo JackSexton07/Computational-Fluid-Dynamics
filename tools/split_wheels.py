@@ -20,6 +20,9 @@ x, z   axle centre (m); the axle is assumed parallel to y
 r_cut  radius separating tyre from wheel arch (pick it in the gap between them)
 y_in, y_out  |y| range of the wheel (inner tyre face to outer rim face)
 side   +1 for the +y side of the car, -1 for the -y side
+exclude (optional) list of boxes [x0, x1, |y|0, |y|1, z0, z1] that stay part of the
+       body even if inside the wheel cylinder, e.g. suspension springs that intersect
+       the tyre in a visual model and must not rotate
 
 Usage:  python3 split_wheels.py car.stl wheels.json car_split.stl [preview.png]
 """
@@ -61,6 +64,8 @@ def main():
     for i, (k, w) in enumerate(wheels.items(), start=1):
         sy = w["side"] * c[:, 1]
         inside = (np.hypot(c[:, 0] - w["x"], c[:, 2] - w["z"]) < w["r_cut"]) & (sy > w["y_in"]) & (sy < w["y_out"])
+        for x0, x1, y0, y1, z0, z1 in w.get("exclude", []):
+            inside &= ~((c[:, 0] > x0) & (c[:, 0] < x1) & (sy > y0) & (sy < y1) & (c[:, 2] > z0) & (c[:, 2] < z1))
         labels[inside] = i
     for i, name in enumerate(names):
         print(f"{name:10s} {np.sum(labels == i):7d} triangles")

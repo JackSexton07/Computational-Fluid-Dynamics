@@ -1,0 +1,84 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2606                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include        "include/initialConditions"
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform $flowVelocity;
+
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"
+
+    #include "include/fixedInlet"
+
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform (0 0 0);
+        value           $internalField;
+    }
+
+    lowerWall
+    {
+        type            fixedValue;
+        value           $internalField;
+    }
+
+    mustangGroup
+    {
+        type            noSlip;
+    }
+
+    // Rolling wheels. The contact patch must move with the ground (+x at 40 m/s),
+    // so omega = -U / r about +y, with r = axle height above the ground.
+    // Front: 40 / 0.3425 = 116.8 rad/s   Rear: 40 / 0.3494 = 114.5 rad/s
+    // These exact patch names take priority over the mustangGroup entry above.
+    mustang_wheel_FL
+    {
+        type            rotatingWallVelocity;
+        origin          (0.9264 0 0.3425);
+        axis            (0 1 0);
+        omega           -116.8;
+    }
+    mustang_wheel_FR
+    {
+        type            rotatingWallVelocity;
+        origin          (0.9264 0 0.3425);
+        axis            (0 1 0);
+        omega           -116.8;
+    }
+    mustang_wheel_RL
+    {
+        type            rotatingWallVelocity;
+        origin          (3.6624 0 0.3494);
+        axis            (0 1 0);
+        omega           -114.5;
+    }
+    mustang_wheel_RR
+    {
+        type            rotatingWallVelocity;
+        origin          (3.6624 0 0.3494);
+        axis            (0 1 0);
+        omega           -114.5;
+    }
+
+    #include "include/frontBackUpperPatches"
+}
+
+
+// ************************************************************************* //

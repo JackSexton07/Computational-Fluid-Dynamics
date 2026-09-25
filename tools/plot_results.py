@@ -36,6 +36,7 @@ CASES = {
     "corvette":     ("Corvette C5",    1.95,   1.9891),  # estimate -> frontal_area.py
     "corvette-v2":  ("Corvette C5 v2", 1.989,  1.989),
     "mustang":      ("Mustang Shelby", 2.2695, 2.2695),
+    "mustang-v2":   ("Mustang Shelby v2", 2.2695, 2.2695),
     "motorbike":    ("motorBike",      0.75,   0.75),
 }
 
@@ -43,6 +44,7 @@ CASES = {
 # Multi-run cases point at the run quoted in their README.
 RESULTS_DIR = {
     "corvette-v2": "corvette-v2/results/run3",
+    "mustang-v2": "mustang-v2/results",
 }
 
 # Published or experimental Cd, drawn as a star on the summary chart.
@@ -62,6 +64,14 @@ PROGRESSIONS = {
             ("Run 1\nlarge domain", "corvette-v2/results/run1", 1.0),
             ("Run 2\n+3 layers, near box", "corvette-v2/results/run2", 1.0),
             ("Run 3\n+rotating wheels", "corvette-v2/results/run3", 1.0),
+        ],
+    ),
+    "mustang-v2": dict(
+        title="Mustang Shelby: original setup vs. v2 (all three Corvette fixes at once)",
+        reference=None,
+        steps=[
+            ("Original\n(small domain, 1 layer,\nstationary wheels)", "mustang/results", 1.0),
+            ("v2\n(large domain, 3 layers,\nrotating wheels)", "mustang-v2/results", 1.0),
         ],
     ),
 }
@@ -92,19 +102,23 @@ def plot_progression(case, spec):
     ax1.bar(x + 0.2, [r[5] for r in rows], 0.4, yerr=[r[6] for r in rows], capsize=3, label="Cl")
     for xi, r in zip(x, rows):
         ax1.text(xi - 0.2, r[3] + 0.008, f"{r[3]:.3f}", ha="center", fontsize=9)
-        ax1.text(xi + 0.2, r[5] + 0.008, f"{r[5]:.3f}", ha="center", fontsize=9)
-    ref, ref_label = spec["reference"]
-    ax1.axhline(ref, color="k", ls="--", lw=1, label=f"{ref_label} ({ref})")
+        ax1.text(xi + 0.2, r[5] + (0.008 if r[5] >= 0 else -0.025), f"{r[5]:.3f}", ha="center", fontsize=9)
+    ref, ref_label = spec["reference"] or (None, None)
+    if ref is not None:
+        ax1.axhline(ref, color="k", ls="--", lw=1, label=f"{ref_label} ({ref})")
     ax1.set_xticks(x, [r[0] for r in rows], fontsize=9)
     ax1.set_ylabel("coefficient")
-    ax1.set_ylim(0, max(r[3] for r in rows) * 1.2)
+    lo = min(0, min(r[5] for r in rows) * 1.3)
+    ax1.set_ylim(lo, max(r[3] for r in rows) * 1.2)
+    ax1.axhline(0, color="k", lw=0.6)
     ax1.legend(loc="upper right")
     ax1.grid(axis="y", alpha=0.3)
     ax1.set_title(f"Mean of last {AVG_WINDOW} iterations (error bar = 1 std. dev.)", fontsize=10)
     for r in rows:
         ax2.plot(r[1], r[2], lw=0.9, label=r[0].replace("\n", " "))
-    ax2.axhline(ref, color="k", ls="--", lw=1)
-    ax2.set_ylim(ref - 0.03, max(r[3] for r in rows) + 0.04)
+    if ref is not None:
+        ax2.axhline(ref, color="k", ls="--", lw=1)
+    ax2.set_ylim(min([r[3] for r in rows] + ([ref] if ref else [])) - 0.03, max(r[3] for r in rows) + 0.04)
     ax2.set_xlabel("iteration")
     ax2.set_ylabel("Cd")
     ax2.legend(fontsize=8, loc="upper right")
