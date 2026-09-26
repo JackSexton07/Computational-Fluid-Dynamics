@@ -37,7 +37,7 @@ writeControl    timeStep;
 
 writeInterval   100;
 
-purgeWrite      0;
+purgeWrite      2;              // keep only the last 2 saved iterations (older ones are deleted)
 
 writeFormat     binary;
 
@@ -58,7 +58,7 @@ functions
     #include "cuttingPlane"
     #include "forceCoeffs"
     #include "wheelForces"
-    #include "ensightWrite"
+    // #include "ensightWrite"   // off: duplicate of the results in EnSight format, 2-4 GB per run
 
     #include "solverInfo"
     #include "graphFunctionObject"

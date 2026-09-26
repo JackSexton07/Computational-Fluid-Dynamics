@@ -1,0 +1,31 @@
+Ferrari 499P v2: force breakdown from surface pressure at iteration 1500 (pressure only).
+Reference: Aref 1.6762 m2, U 40 m/s. Negative Cl = downforce. Axle loads from the moment balance
+about the axles (front x = 0.956 m, rear x = 4.054 m), including the pitching moment of drag;
+this method reproduces OpenFOAM's Cl(f)/Cl(r) for v2 (+0.243/-0.566 vs +0.252/-0.571).
+
+                     total Cl   front axle   rear axle   floor+diffuser Cl
+Original (corrected)  -0.382      +0.214      -0.596         -1.451
+v2                    -0.323      +0.243      -0.566         -0.997
+(The original's own Cl(f)/Cl(r) used the Mustang's CofR and lRef and are not valid.)
+
+v2 front-axle load by component:
+  floor + diffuser (front share)          -0.576
+  front wheel arches                      -0.114
+  dead-end nose duct                      -0.109
+  nose/bonnet/fender tops                 +0.240
+  canopy + upper body (x 1.3-2.7 m)       +0.306
+  rest of nose (x < 1.3 m)                +0.266
+  rear wing (pitches the nose up)         +0.078
+  wheels, splitter, other                 +0.152
+  total                                   +0.243
+
+Dead-end nose duct (inlet between splitter and nose lip, closed back wall at x = 0.52 m):
+  ceiling (facing down)       0.752 m2  Cp +0.74  Cl +0.319
+  splitter top (facing up)    0.769 m2  Cp +0.95  Cl -0.420
+  back wall                   0.225 m2  Cp +0.94  Cd +0.119
+  net                                             Cl -0.097  Cd +0.097
+Splitter underside: 0.844 m2 at Cp +0.32 (no suction).
+
+Interpretation: the upper body makes lift, as on any car. On a real LMH car the front underbody
+(splitter + duct through-flow venting over the bonnet) cancels it. In this visual model the duct
+is a dead end, so it adds drag and the front underbody makes little downforce; the front axle lifts.

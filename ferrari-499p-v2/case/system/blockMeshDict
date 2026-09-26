@@ -1,0 +1,85 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| Ferrari 499P case: background mesh (virtual wind tunnel)                    |
+| Car: nose at x=0, length 4.99 m, centred on y=0, raised 48 mm (see README)  |
+| Domain: x -15..45 m (~3.0 car lengths upstream, ~8.0 downstream)            |
+|         y -10..10 m, z 0..10 m  -> blockage ~0.8% of the cross-section      |
+| Background cells are 0.5 m on a side: (120 40 20) = 96,000 cells            |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale   1;
+
+vertices
+(
+    (-15 -10 0)
+    ( 45 -10 0)
+    ( 45  10 0)
+    (-15  10 0)
+    (-15 -10 10)
+    ( 45 -10 10)
+    ( 45  10 10)
+    (-15  10 10)
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (120 40 20) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    frontAndBack
+    {
+        type patch;
+        faces
+        (
+            (3 7 6 2)
+            (1 5 4 0)
+        );
+    }
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (0 4 7 3)
+        );
+    }
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (2 6 5 1)
+        );
+    }
+    lowerWall
+    {
+        type wall;
+        faces
+        (
+            (0 3 2 1)
+        );
+    }
+    upperWall
+    {
+        type patch;
+        faces
+        (
+            (4 5 6 7)
+        );
+    }
+);
+
+// ************************************************************************* //

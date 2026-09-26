@@ -29,9 +29,10 @@ plus stagnation on the model's closed grille and intake (an artifact, since the 
 | Case | Cells | Cd | Cl | Notes |
 |---|---:|---:|---:|---|
 | [Ahmed body, 25° slant](ahmed-body/) | 8.4 M | **0.268** ± 0.001 | +0.283 ± 0.078 | Validation case. Experiment: Cd ≈ 0.285 (−6 %) |
-| [Ferrari 499P (LMH)](ferrari-499p/) | 4.7 M | 0.419 ± 0.002 | **−0.381** ± 0.019 | Only car producing net downforce; 85 % of it at the rear |
+| [Ferrari 499P (LMH)](ferrari-499p/) | 4.7 M | 0.419 ± 0.002 | **−0.381** ± 0.019 | First run; car sunk into the ground. Superseded by v2 |
 | [Chevrolet Corvette C5](corvette/) | 3.7 M | 0.340 ± 0.002 | +0.118 ± 0.006 | First run; superseded by v2 |
 | [Chevrolet Corvette C5 v2](corvette-v2/) | 10.5 M | **0.311** ± 0.003 | +0.080 ± 0.009 | Larger domain, 3 layers, rotating wheels. Published Cd 0.29 (+7 %) |
+| [Ferrari 499P v2](ferrari-499p-v2/) | 12.0 M | 0.443 ± 0.005 | **−0.366** ± 0.028 | On its tyres (was sunk 66 mm) + v2 setup. Front axle lifts: dead-end nose duct in the model |
 | [Ford Mustang Shelby (2012)](mustang/) | 3.9 M | 0.403 ± 0.008 | −0.155 ± 0.036 | First run; superseded by v2 |
 | [Ford Mustang Shelby v2](mustang-v2/) | 10.3 M | **0.352** ± 0.004 | −0.164 ± 0.008 | Corvette v2 setup. Front downforce traced to the nose and closed grille |
 | [motorBike (OpenFOAM tutorial)](motorbike/) | 0.35 M | 0.416 ± 0.001 | +0.071 ± 0.002 | Baseline used to learn the workflow |
@@ -81,6 +82,11 @@ geometry with [`tools/frontal_area.py`](tools/frontal_area.py).
   Check mesh sensitivity for each quantity you report.
 - **Wheels matter beyond their own area.** Rotating the Corvette's wheels cut Cd by 6 %, half of it on the body,
   because a stationary tyre's wake disturbs the wheel wells, sides and underbody.
+- **Check where the car sits before meshing.** The 499P's tyres were 66 mm into the ground and its floor 9–20 mm off it,
+  too thin a gap to mesh. Putting it on its tyres changed floor downforce by 30 %.
+- **Visual models can have dead-end ducts.** The 499P's nose duct has no exit, so it fills with stagnant air. That adds
+  Cd +0.10, and the front underbody can't make downforce. Count *every* wall of a cavity: its ceiling alone looked like
+  +0.4 of lift, but the floor below it cancels that.
 - **Visual models have no cooling flow.** Their grilles and intakes are solid, so air stagnates against them.
   On the Mustang's large upright grille, that added about −0.085 of front downforce that the real car wouldn't have.
   Surface-pressure breakdowns show which surfaces a force comes from before you trust it.

@@ -1,5 +1,9 @@
 # Ferrari 499P (Le Mans Hypercar)
 
+> **Superseded by [Ferrari 499P v2](../ferrari-499p-v2/),** which puts the car on its tyres (it was sunk 53–66 mm
+> into the ground), applies the validated Corvette v2 setup, and shows that the front/rear split below was wrong:
+> the car actually has **front lift** (+0.21) and all its downforce at the rear (−0.60).
+
 External aerodynamics of the Ferrari 499P, a Le Mans Hypercar. It's the only car in
 this set designed to produce downforce, so this case looks at how that downforce
 is split between the front and rear.
@@ -35,7 +39,7 @@ is split between the front and rear.
 |---|---:|
 | Cd | 0.419 ± 0.002 |
 | Cl | −0.381 ± 0.019 |
-| Cl front / rear | −0.056 / −0.325 |
+| Cl front / rear | ~~−0.056 / −0.325~~ not valid (wrong reference point and length); recomputed from surface pressure: **+0.214 / −0.596** |
 | −Cl/Cd (lift-to-drag ratio) | 0.91 |
 
 ## Correction applied to the results
@@ -68,7 +72,7 @@ The fix is to improve the local mesh quality there (surface repair, snapping con
 
 ## Discussion
 
-- **The downforce sits mostly at the rear** (85 % of the total). A real LMH car is set
+- **The balance is strongly rear-biased: the front axle actually lifts** (+0.214, recomputed in [v2](../ferrari-499p-v2/); the 85 %-at-the-rear figure first written here used invalid reference values). A real LMH car is set
   up closer to the centre of gravity for balanced handling, so this shows the limits
   of the model more than the real car's setup.
 - **The downforce is probably too low for a Le Mans prototype.** Likely reasons are that the
