@@ -1,0 +1,35 @@
+Ferrari 499P v3 (Jack's open duct) vs v2 (dead-end duct). Identical setup otherwise
+(mesh settings, domain, rotating wheels, Aref 1.6762, CofR 2.505, lRef 3.098).
+Mesh: v2 11.96 M cells, v3 12.00 M; layer coverage 90.0 % both; 7 / 8 highly skewed faces.
+
+Averaged over the last 300 of 1500 iterations (forceCoeffs):
+            Cd              Cl               Cl front   Cl rear   wheels Cd
+  v2   0.4428 +/-0.0054  -0.3664 +/-0.0279   +0.2296   -0.5960    0.0465
+  v3   0.4536 +/-0.0039  -0.3778 +/-0.0205   +0.2001   -0.5779    0.0408
+  chg  +0.011            -0.011              -0.030    +0.018
+
+Flow through the duct (sampled planes, iteration 1500):
+  channel at x = 0.50 m: 0.457 (+y) + 0.440 (-y) = 0.90 m3/s, mean 20.5 m/s, Cp +0.18
+  (v2: stagnant, Cp +0.45 to +0.51)
+  about 22 % of the flow entering the nose inlet (4.14 m3/s through x = 0.005 m, |y|<0.64, z 0.10-0.27)
+
+Pressure forces by component at iteration 1500 (single snapshot, pressure only):
+                                         Cl v2   Cl v3   Cd v2   Cd v3   front v2  front v3
+  nose duct system (cavity+channel+vents) +0.071  +0.015  +0.094  +0.108   +0.076    +0.015
+  splitter underside                      +0.156  +0.156  +0.020  +0.021   +0.193    +0.193
+  floor + diffuser                        -0.991  -1.023  +0.040  +0.044   -0.569    -0.597
+  rear wing                               -0.230  -0.230  +0.068  +0.069   +0.078    +0.079
+  wheels                                  +0.056  +0.048  +0.065  +0.065   +0.045    +0.034
+  everything else                         +0.614  +0.652  +0.112  +0.112   +0.419    +0.461
+  total (pressure)                        -0.323  -0.381  +0.399  +0.420   +0.243    +0.185
+(Snapshot totals differ from the 300-iteration averages because lift fluctuates by ~+/-0.02-0.03.)
+
+Findings:
+- The duct now flows (0.9 m3/s at about half the freestream speed) and the duct system's
+  front lift fell by ~0.06 (front-axle share +0.076 -> +0.015): it works as a downforce device.
+- It did not reduce drag: the duct system's drag rose slightly (+0.014). The inlet still stagnates
+  and the air leaving the vents upward into the flow over the bonnet adds drag.
+- The splitter underside is unchanged at Cp +0.32 (Cl +0.156, front-axle +0.193). It sits below the
+  splitter plate, so the duct does not affect it. It is now the biggest single source of front lift.
+- Net averaged effect: front Cl -0.030, total Cl -0.011, Cd +0.011. The front axle still lifts.
+Memory: solver used 21-22.5 GB, swap never used (memwatch.log).

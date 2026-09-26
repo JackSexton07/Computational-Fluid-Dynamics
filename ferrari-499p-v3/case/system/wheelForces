@@ -1,0 +1,14 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| Force coefficients on the four wheels only (tyres + rims).                  |
+| Same reference values as forceCoeffs1, so wheelCoeffs Cd is the wheels'     |
+| share of the whole car's Cd.                                                |
+\*---------------------------------------------------------------------------*/
+
+wheelCoeffs
+{
+    ${forceCoeffs1}
+    patches         (wheelGroup);
+    log             no;
+}
+
+// ************************************************************************* //

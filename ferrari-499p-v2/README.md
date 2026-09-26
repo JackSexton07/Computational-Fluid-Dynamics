@@ -93,7 +93,7 @@ front underbody work. The splitter's underside sits at Cp ≈ +0.3, with no suct
 
 **Conclusion:** the rear-biased balance and front lift come from the model, not the real car. A Le Mans
 Hypercar is designed for a balanced split, and this visual model has no working front downforce device. The next
-step is **499P v3** (in progress): open the duct and give it an exit, so the front underbody can work.
+step is [**499P v3**](../ferrari-499p-v3/): open the duct and give it an exit, so the front underbody can work.
 
 *An earlier version of this analysis attributed the front lift to the duct ceiling alone (+0.32 to +0.44). Counting the
 duct's floor as well showed that its net lift is slightly negative, and that its real cost is drag.*

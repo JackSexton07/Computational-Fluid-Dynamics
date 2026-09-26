@@ -34,6 +34,7 @@ CASES = {
     "ahmed-body":   ("Ahmed body 25°", 0.112,  0.112),
     "ferrari-499p": ("Ferrari 499P",   2.2695, 1.6437),  # ran with the Mustang's Aref
     "ferrari-499p-v2": ("Ferrari 499P v2", 1.6762, 1.6762),
+    "ferrari-499p-v3": ("Ferrari 499P v3", 1.6762, 1.6762),
     "corvette":     ("Corvette C5",    1.95,   1.9891),  # estimate -> frontal_area.py
     "corvette-v2":  ("Corvette C5 v2", 1.989,  1.989),
     "mustang":      ("Mustang Shelby", 2.2695, 2.2695),
@@ -47,6 +48,7 @@ RESULTS_DIR = {
     "corvette-v2": "corvette-v2/results/run3",
     "mustang-v2": "mustang-v2/results",
     "ferrari-499p-v2": "ferrari-499p-v2/results",
+    "ferrari-499p-v3": "ferrari-499p-v3/results",
 }
 
 # Published or experimental Cd, drawn as a star on the summary chart.
@@ -74,6 +76,7 @@ PROGRESSIONS = {
         steps=[
             ("Original\n(sunk 66 mm, small domain,\nstationary wheels)", "ferrari-499p/results", 2.2695 / 1.6437),
             ("v2\n(on its tyres, large domain,\n3 layers, rotating wheels)", "ferrari-499p-v2/results", 1.0),
+            ("v3\n(v2 + open nose duct)", "ferrari-499p-v3/results", 1.0),
         ],
     ),
     "mustang-v2": dict(
